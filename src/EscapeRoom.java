@@ -21,6 +21,9 @@ public class EscapeRoom {
     - Big text box on the left
     - three buttons moderately spaced buttons up-down
     - Below the text box and the buttons, boxes with the inventory
+
+    Map:
+    - Center: desk, bookshelf, bed
      */
 
 

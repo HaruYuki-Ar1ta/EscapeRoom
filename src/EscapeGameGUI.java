@@ -10,7 +10,7 @@ JFrame window;
 JPanel panel;
 JButton option1, option2, option3;
 JTextArea story;
-JTextField item1, item2, item3;
+JTextField item1, item2, item3, location;
 
 static String where = "center";
 
@@ -23,7 +23,7 @@ static String where = "center";
 
         panel = new EscapeRoomPanel();
 
-        story = new JTextArea("This is where the story goes");
+        story = new JTextArea(story());
         story.setBounds(25, 25, 350, 150);
 
         option1 = new JButton("Option1: ");
@@ -42,10 +42,13 @@ static String where = "center";
         item1.setBounds(25, 200, 75, 50);
 
         item2 = new JTextField("You have:");
-        item2.setBounds(100, 200, 75, 50);
+        item2.setBounds(113, 200, 75, 50);
 
         item3 = new JTextField("You have:");
-        item3.setBounds(150, 200, 75, 50);
+        item3.setBounds(200, 200, 75, 50);
+
+        location = new JTextField("You are currently at the: " + where);
+        location.setBounds(300, 220, 200, 25);
 
     panel.setLayout(null);
     panel.add(story);
@@ -55,8 +58,28 @@ static String where = "center";
     panel.add(item1);
     panel.add(item2);
     panel.add(item3);
+    panel.add(location);
     window.add(panel);
     }
+
+    public static String story() {
+        String plot = "";
+        if (where == "center"){
+            plot = "...You wake up in a (from what you can tell) abandoned building \nwith no clue how you got here. Now you need to figure out how to \nescape before something bad might happen. " ;
+            plot += "\n\nYou can see a desk, a bookshelf, and a bed. Where would you \nlike to go?";
+
+        }else if (where == "desk"){
+            return "";
+        }else if (where == "bookshelf"){
+            return " ";
+        }else if (where == "bed"){
+            return "There is nothing on top of the bed" +"\nYou can look under it or go back.";
+        }
+        return plot;
+    }
+
+
+
 
     public class EscapeRoomPanel extends JPanel{
         public EscapeRoomPanel(){
@@ -73,7 +96,7 @@ static String where = "center";
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if(where == "center "){
-
+                where = "bed";
             }
         }
     }
@@ -81,14 +104,16 @@ static String where = "center";
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if(where == "center "){
-
+                where = "shelf";
             }
         }
     }
     private class OptionThreeActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent){
-            if (where == "center ");
+            if (where == "center "){
+                where = "desk";
+            }
         }
     }
 }
