@@ -1,20 +1,20 @@
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EscapeGameGUI {
 
-JFrame window;
-JPanel panel;
-JButton option1, option2, option3;
-JTextArea story;
-JTextField item1, item2, item3, location;
-
+static JFrame window;
+static JPanel panel;
+static JButton option1, option2, option3;
+static JTextArea story;
+static JTextField item1, item2, item3, location;
+static String plot;
 static String where = "center";
 
-    public EscapeGameGUI(){
+    public EscapeGameGUI() {
+
         window = new JFrame("Escape Game");
         window.setSize(600, 300);
         window.setLocationRelativeTo(null);
@@ -23,7 +23,7 @@ static String where = "center";
 
         panel = new EscapeRoomPanel();
 
-        story = new JTextArea(story());
+        story = new JTextArea(plot);
         story.setBounds(25, 25, 350, 150);
 
         option1 = new JButton("Option1: ");
@@ -60,28 +60,47 @@ static String where = "center";
     panel.add(item3);
     panel.add(location);
     window.add(panel);
+
+
     }
 
-    public static String story() {
-        String plot = "";
+    public static void story() {
+        s
         if (where == "center"){
             plot = "...You wake up in a (from what you can tell) abandoned building \nwith no clue how you got here. Now you need to figure out how to \nescape before something bad might happen. " ;
             plot += "\n\nYou can see a desk, a bookshelf, and a bed. Where would you \nlike to go?";
 
+            option1.setText("Desk");
+            option2.setText("Bookshelf");
+            option3.setText("Bed");
+
         }else if (where == "desk"){
-            return "";
+            plot = "The desk has 1 drawer and there is a small computer on it.";
+            plot += "\n\nWould you like to check the drawer, try the computer, or look \nunder the desk?";
+
+            option1.setText("Check drawer");
+            option2.setText("Try computer");
+            option3.setText("Look under desk");
+
         }else if (where == "bookshelf"){
-            return " ";
-        }else if (where == "bed"){
-            return "There is nothing on top of the bed" +"\nYou can look under it or go back.";
+            plot = "There is two shelves on the bookshelf";
+            plot += "\n\nWould you like to look on the 1st or the second shelf ";
+
+            option1.setText("Top shelf");
+            option2.setText("Bottom shelf");
+
+        }else if (where == "bed") {
+            plot = "There is nothing on top of the bed" + "\n\nYou can look under it or go back.";
+
+            option1.setText("Look under");
+            option2.setText("Go back");
         }
-        return plot;
     }
 
 
 
 
-    public class EscapeRoomPanel extends JPanel{
+    public static class EscapeRoomPanel extends JPanel{
         public EscapeRoomPanel(){
             setBackground(Color.black);
         }

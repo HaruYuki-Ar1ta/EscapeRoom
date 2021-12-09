@@ -24,6 +24,9 @@ public class EscapeRoom {
 
     Map:
     - Center: desk, bookshelf, bed
+    - Desk: The computer, The drawer, and Under the desk
+    - Bookshelf: 1st and second shelves
+    - Bed: Under and on top
      */
 
 
