@@ -10,9 +10,10 @@ static JPanel panel;
 static JButton option1, option2, option3;
 static JTextArea story;
 static JTextField item1, item2, item3, location;
-static String plot;
-static String where = "center";
 
+boolean password = false;
+static String where = "center";
+static String action = " ";
     public EscapeGameGUI() {
 
         window = new JFrame("Escape Game");
@@ -21,9 +22,10 @@ static String where = "center";
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
-        panel = new EscapeRoomPanel();
+        panel = new JPanel();
+        panel.setBackground(Color.black);
 
-        story = new JTextArea(plot);
+        story = new JTextArea(story());
         story.setBounds(25, 25, 350, 150);
 
         option1 = new JButton("Option1: ");
@@ -50,6 +52,7 @@ static String where = "center";
         location = new JTextField("You are currently at the: " + where);
         location.setBounds(300, 220, 200, 25);
 
+
     panel.setLayout(null);
     panel.add(story);
     panel.add(option1);
@@ -61,18 +64,17 @@ static String where = "center";
     panel.add(location);
     window.add(panel);
 
-
+        buttonNames();
+        panel.updateUI();
     }
 
-    public static void story() {
-        s
+    public static String story() {
+        String plot = "";
         if (where == "center"){
             plot = "...You wake up in a (from what you can tell) abandoned building \nwith no clue how you got here. Now you need to figure out how to \nescape before something bad might happen. " ;
             plot += "\n\nYou can see a desk, a bookshelf, and a bed. Where would you \nlike to go?";
 
-            option1.setText("Desk");
-            option2.setText("Bookshelf");
-            option3.setText("Bed");
+
 
         }else if (where == "desk"){
             plot = "The desk has 1 drawer and there is a small computer on it.";
@@ -95,44 +97,79 @@ static String where = "center";
             option1.setText("Look under");
             option2.setText("Go back");
         }
+        return plot;
     }
 
 
+public static void buttonNames(){
+        if(where == "center"){
+            option1.setText("Desk");
+            option2.setText("Bookshelf");
+            option3.setText("Bed");
+        }else if (where == "desk"){
+            option1.setText("Check Computer");
+            option2.setText("Check Drawer");
+            option3.setText("Check Under");
+            if(action == "computer"){
 
-
-    public static class EscapeRoomPanel extends JPanel{
-        public EscapeRoomPanel(){
-            setBackground(Color.black);
+            }
+        }else if (where == "bookshelf"){
+            option1.setText("Top Shelf");
+            option2.setText("Bottom Shelf");
+            panel.remove(option3);
+        }else if (where == "bed"){
+            option1.setText("Look under the bed");
+            option2.setText("Go Back");
+            panel.remove(option3);
         }
+}
 
-    public void paintComponent(Graphics g){
-            super.paintComponent(g);
 
-        }
-    }
     private class OptionOneActionListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(where == "center "){
-                where = "bed";
-            }
+            if(where == "center"){
+                where = "desk";
+                location.setText("You are currently at: " + where);
+                story.setText(story());
+               buttonNames();
+                if (where == "desk"){
+                    action = "computer";
+                    story.setText(story());
+                    if (action == "computer"){
+                        if (password == true){
+                            story.setText("You unlocked the Computer and got the\n passcode");
+                        }
+                    }
+
+                }
+            }else
+            panel.updateUI();
         }
     }
     private class OptionTwoActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(where == "center "){
+            if(where == "center"){
                 where = "shelf";
+
+                buttonNames();
+
             }
+            panel.updateUI();
         }
     }
     private class OptionThreeActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent){
-            if (where == "center "){
-                where = "desk";
+            if (where == "center"){
+                where = "bed";
+
+                buttonNames();
+
             }
+            panel.updateUI();
         }
     }
 }
